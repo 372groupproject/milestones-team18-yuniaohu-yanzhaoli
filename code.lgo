@@ -1,0 +1,7 @@
+to star
+    repeat 5 [fd 100 rt 144]
+end
+
+to p
+    print [Hello, World]
+end
