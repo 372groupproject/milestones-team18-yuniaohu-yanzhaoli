@@ -1,0 +1,14 @@
+Web sites:
+https://www.calormen.com/jslogo/language.html
+
+Book
+https://people.eecs.berkeley.edu/~bh/docs/usermanual.pdf
+
+Community:
+https://stackoverflow.com/
+
+Install:
+https://xlogo.tuxfamily.org/en/download-en.html
+
+Open source Project
+kidscode.cn/logo
