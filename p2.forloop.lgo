@@ -1,0 +1,6 @@
+to star
+  repeat 5 [ fd 100 rt 144 ]
+end
+to for_loop
+for [i 1 100] [fd :i * 10 rt :i]
+end

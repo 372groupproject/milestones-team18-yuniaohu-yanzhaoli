@@ -1,0 +1,11 @@
+to guess_the_number
+make "number sum random 99 1 
+make "answer ( readWord [choose a number between 1- 100])
+WHILE [ :answer <> :number ] [
+ make "answer ( readWord [choose a number between 1- 100])
+ if :answer > :number [ print [ number too big ] ]
+ if :answer < :number [ print [ number too small ] ]
+ ]
+print [ good job]
+end
+guess_the_number

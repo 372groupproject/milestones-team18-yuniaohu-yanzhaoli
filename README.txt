@@ -1,3 +1,18 @@
-open the file by compiler and click on the white triangle.
+open the file by compiler click on the white triangle.
 input p in to the command line to print hello word
 input star in to the command line to draw the star on the screen
+
+open the p2.forloop file by compiler click on the white triangle.
+input for_loop in to the command line to print some lines
+
+open the p2.if file by compiler click on the white triangle.
+input IF_ELSE in to the command line to print  this  will be  printed
+
+open the p2.repeat file by compiler click on the white triangle.
+input my_repeat in to the command line to print  the star
+
+open the p2.while file by compiler click on the white triangle.
+input my_while in to the command line to print  some string
+
+cope the code which in p2.feature.txt to https://www.calormen.com/jslogo/ and run.
+it will be a small game to let you guess the number.

@@ -1,0 +1,6 @@
+to my_while
+make "number sum random 99 1 
+while [:number<90] [
+print [ this  will be  printed.]
+make "number sum random 99 1 ]
+end
