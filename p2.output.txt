@@ -1,0 +1,4 @@
+to myoutput
+repeat 20 [MAKE "x REPCOUNT ifelse :x>10 [OUTPUT print :x][print repcount]]
+end
+myoutput
