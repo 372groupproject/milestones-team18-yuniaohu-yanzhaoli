@@ -14,5 +14,14 @@ input my_repeat in to the command line to print  the star
 open the p2.while file by compiler click on the white triangle.
 input my_while in to the command line to print  some string
 
+open the p2.forever file by compiler click on the white triangle.
+input myforever in to the command line to print  some string
+
+open the p2.repeatcount file by compiler click on the white triangle.
+input repeatcont in to the command line to print  some number
+
+open the p2.runprint file by compiler click on the white triangle.
+input runprint in to the command line to print  some string
+
 cope the code which in p2.feature.txt to https://www.calormen.com/jslogo/ and run.
 it will be a small game to let you guess the number.
