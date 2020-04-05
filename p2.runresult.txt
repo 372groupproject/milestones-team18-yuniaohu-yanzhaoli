@@ -1,0 +1,5 @@
+TO RESULT
+local "result
+make "result runresult [print "hello print "this print "world]
+end
+RESULT
