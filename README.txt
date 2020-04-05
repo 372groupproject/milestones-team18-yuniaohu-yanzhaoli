@@ -37,3 +37,6 @@ it will print string.
 
 cope the code which in p2.feature.txt to https://www.calormen.com/jslogo/ and run.
 it will be a small game to let you guess the number.
+
+open the p2.error file by UCBLogo compiler.
+type the throw_error in to command line to throw the error
