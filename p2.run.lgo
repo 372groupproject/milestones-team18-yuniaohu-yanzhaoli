@@ -1,6 +1,3 @@
-to printworld
-RUN [print "HelloWorld!]
-end
 to runprint
 RUN [print "HelloWorld!]
 end
