@@ -1,4 +1,6 @@
 to if_else
 make "x false
 ifelse :x [ print [ this  won't be  printed. ] ] [ print [ this  will be  printed.] ]
+make "y true
+if :y  [ print [ this  will be  printed.] ]
 end
