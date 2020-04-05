@@ -1,0 +1,4 @@
+TO throw_error
+THROW "error
+end
+
