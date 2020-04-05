@@ -1,0 +1,8 @@
+TO mytest
+make "x 7
+test :x>8
+iffalse [print "Test_Returned_False]
+test :x<8
+iftrue [print "Test_Returned_True]
+end
+mytest
