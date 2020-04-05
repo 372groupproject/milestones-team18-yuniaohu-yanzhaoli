@@ -20,8 +20,20 @@ input myforever in to the command line to print  some string
 open the p2.repeatcount file by compiler click on the white triangle.
 input repeatcont in to the command line to print  some number
 
-open the p2.runprint file by compiler click on the white triangle.
+open the p2.run file by compiler click on the white triangle.
 input runprint in to the command line to print  some string
+
+open the p2.stop file by compiler click on the white triangle.
+input mystop in to the command line to print  some number
+
+cope the code which in p2.runresult.txt to https://www.calormen.com/jslogo/ and run.
+it will print some string.
+
+cope the code which in p2.output.txt to https://www.calormen.com/jslogo/ and run.
+it will print some number.
+
+cope the code which in p2.test.txt to https://www.calormen.com/jslogo/ and run.
+it will print string.
 
 cope the code which in p2.feature.txt to https://www.calormen.com/jslogo/ and run.
 it will be a small game to let you guess the number.
