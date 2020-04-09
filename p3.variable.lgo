@@ -1,0 +1,11 @@
+to variable
+ make "name "Guido
+ make "n 17
+ make "hello [Hello, World!]
+ print thing "name
+ print thing "n
+ print thing "hello
+ print :name
+ print :n
+ print :hello
+end

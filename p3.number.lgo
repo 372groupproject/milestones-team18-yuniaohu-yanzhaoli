@@ -1,0 +1,9 @@
+to number
+print numberp 1
+print numberp 1.1e1
+print numberp "ER
+print numberp 1+1
+print numberp 1-1
+print numberp 1*1
+print numberp 1/1
+end
