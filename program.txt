@@ -1,0 +1,5 @@
+our program will implement a game that will be the Greedy Snake game.
+We expect the program to have the background function and the snake function and the food function and the eat function some thing like those.
+We expect the program to be approximately under 10kb
+We think this program will be a good illustration of the features of our languagebecaus because the logo programming language easy to draw the photo.
+
