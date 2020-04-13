@@ -1,0 +1,10 @@
+to mychar
+print COUNT "thing
+print ASCII "a
+print RAWASCII "a
+print char 97
+print LOWERCASE "HELLO
+print UPPERCASE "HELLO
+
+end
+
