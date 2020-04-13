@@ -41,8 +41,14 @@ it will be a small game to let you guess the number.
 open the p2.error file by UCBLogo compiler.
 type the throw_error in to command line to throw the error
 
-open the p3.array file by compiler click on the white triangle.
-input array in to the command line to print  the result.
+open the p3.array file by compiler(FSMlogo).
+input myarray in to the command line to print  the result.
+
+open the p3.char file by compiler(FSMlogo).
+input mychar in to the command line to print  the result.
+
+open the p3.list file by compiler(FSMlogo).
+input mylist in to the command line to print  the result.
 
 open the p3.error1 file by compiler click on the white triangle.
 input my_repeat in to the command line to get error
@@ -50,8 +56,8 @@ input my_repeat in to the command line to get error
 open the p3.variable file by compiler click on the white triangle.
 input variable in to the command line to print the result
 
-open the p3.word file by compiler click on the white triangle.
+open the p3.word file by compiler by compiler(FSMlogo).
 input myword in to the command line to print  the result.
 
-open the p3.word file by compiler(MSWlog).
+open the p3.feature.lgo file by compiler(MSWlog).
 input amicable_numbers and min number and max number in to the command line to print  the result and the time to get the result.
