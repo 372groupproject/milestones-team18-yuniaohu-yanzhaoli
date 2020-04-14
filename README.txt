@@ -53,6 +53,9 @@ input mylist in to the command line to print  the result.
 open the p3.error1 file by compiler click on the white triangle.
 input my_repeat in to the command line to get error
 
+open the p3.number file by compiler click on the white triangle.
+input number in to the command line to get the result
+
 open the p3.variable file by compiler click on the white triangle.
 input variable in to the command line to print the result
 
