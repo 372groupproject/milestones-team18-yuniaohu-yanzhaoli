@@ -1,0 +1,52 @@
+to mymachine :s
+  setpc :s setfc :s
+  ifelse :s=7[make "ss 3][make "ss 1]
+  setpensize se 1 :ss
+  seth :h
+  pd circle 5 fill
+  circle 20 circle 35
+  rt 45 fd 30 bk 30
+  lt 90 fd 30 bk 30 rt 45
+  pu bk 25 pd fill pu fd 25 pd
+end
+
+to square
+  pu setxy -300 -200 pd
+  repeat 2[fd 400 rt 90 fd 600 rt 90]
+  pu setxy -310 -210 pd
+  repeat 2[fd 420 rt 90 fd 620 rt 90]
+end
+
+to sweep
+  pd mymachine 1 wait 5
+  mymachine 7
+  fd 5
+  make "sx xcor make "sy ycor
+  if or :sx>255 :sx<-255[make "h heading*-1]
+  if or :sy>160 :sy<-160[make "h 180-heading]
+  if and (abs(:sx-:zx))<78 (abs(:sy-:zy))<78[
+    make "h heading+60+random 60]
+  sweep
+end
+
+to sweeper :loc :near
+  cs ht
+  make "sx item 1 :loc
+  make "sy item 2 :loc
+  make "h item 3 :loc
+  make "zx first :near
+  make "zy last :near
+  square
+  pu setpos :near pd table
+  pu setxy :sx :sy seth :h
+  mymachine 1
+  sweep
+end
+
+to table
+  setpc 0 setfc 0
+  setpensize[1 1]
+  circle 15 fill
+  circle 35 circle 40
+end
+

@@ -1,0 +1,145 @@
+to BoardSquareIsBlocked :x :y
+   localmake "square GetBoardSquare :x :y
+   output (or (:square = "X) (:square = "S) )
+end
+
+to DrawBody
+      MoveToGrid.LowerLeft :SnakeX :SnakeY
+      setfloodcolor :SnakeColor
+      bitblock :GridSize :GridSize
+end
+
+to DrawGameBoard
+   local [i j gameboard.row boardsquare]
+   repeat :BoardHeight [
+      make "j repcount
+      make "gameboard.row item :j :GameBoard
+      repeat :BoardWidth [
+         make "i repcount
+         make "boardsquare item :i :gameboard.row
+         if :boardsquare = "X [
+           DrawWall :i :j
+         ]
+         if :boardsquare = "A [
+           DrawApple :i :j
+         ]
+      ]
+   ]
+end
+
+to DrawWall :X :Y
+   MoveToGrid.LowerLeft :X :Y
+   setfloodcolor 0
+   bitblock :GridSize :GridSize
+end
+
+to EraseGrid :X :Y
+   MoveToGrid.LowerLeft :X :Y
+   setfloodcolor screencolor
+   bitblock :GridSize :GridSize
+end
+
+to Game
+  catch "error [ fullscreen ]
+  icon "Commander
+  icon "Editor
+  clearscreen
+  hideturtle
+  setfocus [MSWLogo Screen]
+  catch "error [ GameLoop ]
+  localmake "lasterror error
+  if not empty? :lasterror [ 
+      (show item 2 :lasterror "in item 3 :lasterror) 
+      show item 4 :lasterror 
+  ]
+
+  unicon "Commander
+  catch "error [ splitscreen ]
+
+end
+
+to GameLoop
+   local     "GameBoard
+   localmake "GridSize        10
+   localmake "BoardWidth  50
+   localmake "BoardHeight 50
+   Init
+   localmake "IsAlive         "true
+   localmake "SnakeBody       []
+   localmake "SnakeColor      [255 255 0]
+   localmake "MaxSnakeLength  5
+   localmake "SnakeX          20
+   localmake "SnakeY          20
+   localmake "Score           0
+   localmake "TotalApples     0
+   localmake "Direction     "right
+   localmake "NextDirection "right
+   DrawGameBoard
+   localmake "IsDone "false
+   while [ not :IsDone ] [
+      UpdateNext
+      wait 8 ; 20 ms
+   ]
+   (print "|Game Over.  Score =| :Score)
+end
+
+to GetBoardSquare :x :y
+    output item :x (item :y :GameBoard)
+end
+
+to Init
+   local [row boardsquare i j]
+   make "GameBoard array :BoardHeight
+   repeat :BoardHeight [
+      make "j repcount
+      make "row array :BoardWidth
+      repeat :BoardWidth [
+         make "i repcount
+         make "boardsquare ".
+         if (or (:j = 1) 
+                (:j = :BoardHeight)
+                (:i = 1)
+                (:i = :BoardWidth)) [
+            make "boardsquare "X
+         ]
+
+         setitem :i :row :boardsquare
+      ] 
+      setitem :j :GameBoard :row
+   ]
+
+end
+
+to MoveToGrid.LowerLeft :X :Y
+    penup
+    setxy :GridSize * (:X  - :BoardWidth / 2)            :GridSize * (:Y - :BoardHeight / 2)
+    pendown
+end
+
+to MoveToGrid.LowerRight :X :Y
+    penup
+    setxy :GridSize * (:X + 1 - :BoardWidth / 2) - 1    :GridSize * (:Y - :BoardHeight / 2)
+    pendown
+end
+
+to MoveToGrid.UpperLeft :X :Y
+    penup
+    setxy :GridSize * (:X - :BoardWidth / 2)            :GridSize * (:Y + 1 - :BoardHeight / 2) - 1
+    pendown
+end
+
+to PrintGameBoard
+   repeat :BoardHeight [
+      print item repcount :GameBoard
+   ]
+end
+
+to SetBoardSquare :x :y :value
+    setitem :x (item :y :GameBoard) :value
+end
+
+to UpdateNext
+   DrawBody 
+end
+
+Make "startup [Game]
