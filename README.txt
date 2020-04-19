@@ -53,9 +53,6 @@ input mylist in to the command line to print  the result.
 open the p3.error1 file by compiler click on the white triangle.
 input my_repeat in to the command line to get error
 
-open the p3.number file by compiler click on the white triangle.
-input number in to the command line to get the result
-
 open the p3.variable file by compiler click on the white triangle.
 input variable in to the command line to print the result
 
@@ -64,3 +61,12 @@ input myword in to the command line to print  the result.
 
 open the p3.feature.lgo file by compiler(MSWlog).
 input amicable_numbers and min number and max number in to the command line to print  the result and the time to get the result.
+
+open the p4.program file by compiler by compiler(FSMlogo).
+input Game in to the command line to output the result.
+
+open the p4.feature file by compiler by compiler(FSMlogo).
+input sweeper in to the command line to output  the result.
+
+open the p4.to_end file by compiler by compiler(FSMlogo).
+input star in to the command line to print  the result.
