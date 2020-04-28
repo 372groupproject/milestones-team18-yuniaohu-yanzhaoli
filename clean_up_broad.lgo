@@ -1,0 +1,356 @@
+to BoardSquareIsBlocked :x :y
+   localmake "square GetBoardSquare :x :y
+
+   output (or (:square = "X) (:square = "S) )
+end
+
+to CheckIfDead
+   local [i j boardsquare]
+
+   ; if the square is blocked by something other than this player's head
+   if BoardSquareIsBlocked :SX :SY [
+
+      ; just died
+      make "IsAlive "false
+ 
+      stop
+
+      ; remove the player's trail from the board
+      repeat :GameBoardHeight [
+         make "j repcount
+      
+         make "gameboard.row item :j :GameBoard
+         repeat :GameBoardWidth [
+            make "i repcount
+
+            make "boardsquare item :i :gameboard.row
+
+            if :boardsquare = "S [
+               ; this is the dead player's trail.
+               ; remove it by setting it to an empty space
+               setitem :i :gameboard.row ".
+               EraseGrid :i :j
+            ]
+         ]
+      ]
+   ]
+
+end
+
+to DrawApple :X :Y
+   MoveToGrid.LowerLeft :X :Y
+
+   setfloodcolor [255 0 0]
+   bitblock :GridSize :GridSize
+end
+
+to DrawGameBoard
+   local [i j gameboard.row boardsquare]
+
+   ; now draw the game board
+   repeat :GameBoardHeight [
+      make "j repcount
+      
+      make "gameboard.row item :j :GameBoard
+      repeat :GameBoardWidth [
+         make "i repcount
+  
+         make "boardsquare item :i :gameboard.row
+         if :boardsquare = "X [
+           DrawWall :i :j
+         ]
+         if :boardsquare = "A [
+           DrawApple :i :j
+         ]
+      ]
+   ]
+
+end
+
+to DrawHead
+
+   if :Direction = "right [
+       MoveToGrid.LowerLeft :SX :SY
+       setheading 0
+       repeat 3 [ forward :GridSize - 1 right 120 ]
+   ]
+   if :Direction = "left [
+       MoveToGrid.LowerRight :SX :SY
+       setheading 0
+       repeat 3 [ forward :GridSize - 1 left 120 ]
+   ]
+   if :Direction = "up [
+       MoveToGrid.LowerLeft :SX :SY
+       setheading 90
+       repeat 3 [ forward :GridSize - 1 left 120 ]
+   ]
+   if :Direction = "down [
+       MoveToGrid.UpperLeft :SX :SY
+       setheading 90
+       repeat 3 [ forward :GridSize - 1 right 120 ]
+   ]
+
+end
+
+to DrawWall :X :Y
+   MoveToGrid.LowerLeft :X :Y
+
+   setfloodcolor 0
+   bitblock :GridSize :GridSize
+end
+
+to EndKeyboardCapture
+   keyboardoff
+end
+
+to EraseGrid :X :Y
+   MoveToGrid.LowerLeft :X :Y
+
+   setfloodcolor screencolor
+   bitblock :GridSize :GridSize
+end
+
+to GameLoop
+
+   local     "GameBoard
+   localmake "GridSize        9
+   localmake "GameBoardWidth  50
+   localmake "GameBoardHeight 50
+
+   InitGameBoard
+
+   localmake "IsAlive         "true
+   localmake "SBody           []
+   localmake "SLength         0
+   localmake "SX              15
+   localmake "SY              15
+   localmake "Score           0
+   localmake "TotalApples     0
+
+   localmake "Direction     "right
+   localmake "NextDirection "right
+
+
+   DrawHead
+   DrawGameBoard
+
+   StartKeyboardCapture
+
+   localmake "IsDone "false
+   while [ not :IsDone ] [
+
+      UpdateNextFrame
+      wait 9 ; 15 ms
+   ]
+
+   EndKeyboardCapture
+
+   (print "|Game Over.  Score =| :Score)
+end
+
+to GetBoardSquare :x :y
+    output item :x (item :y :GameBoard)
+end
+
+to InitGameBoard
+   local [row boardsquare i j]
+
+   ; copy the game board template to the live game board
+   make "GameBoard array :GameBoardHeight
+   repeat :GameBoardHeight [
+      make "j repcount
+
+      ; add a new array for this row
+      make "row array :GameBoardWidth
+
+      repeat :GameBoardWidth [
+         make "i repcount
+
+         ; the game board starts off as an empty space
+         make "boardsquare ".
+
+         ; put a border around the game board
+         if (or (:j = 1) 
+                (:j = :GameBoardHeight)
+                (:i = 1)
+                (:i = :GameBoardWidth)) [
+            make "boardsquare "X
+         ]
+
+         setitem :i :row :boardsquare
+      ] 
+
+      ; set this row in the game board
+      setitem :j :GameBoard :row
+   ]
+
+end
+
+to KeyDown
+   ; disallow doubling-back on oneself
+   if not :Direction = "up [ make "NextDirection "down ]
+end
+
+to KeyLeft
+   ; disallow doubling-back on oneself
+   if not :Direction = "right [ make "NextDirection "left ]
+end
+
+to KeyRight
+   ; disallow doubling-back on oneself
+   if not :Direction = "left [ make "NextDirection "right ]
+end
+
+to KeyUp
+   ; disallow doubling-back on oneself
+   if not :Direction = "down [ make "NextDirection "up ]
+end
+
+to Move
+
+   ; push the current position onto the list
+   queue "SBody (list :SX :SY)
+
+   ; mark the space as filled
+   SetBoardSquare :SX :SY "S
+
+   if :SLength < count :SBody [
+      localmake "tail dequeue "SBody
+      EraseGrid (item 1 :tail) (item 2 :tail)
+ 
+      ; mark the space as empty
+      SetBoardSquare  (item 1 :tail) (item 2 :tail) ".
+   ]
+
+
+   ; move the snake
+   make "Direction :NextDirection
+
+   if :Direction = "left  [ make "SX :SX - 1 ]
+   if :Direction = "right [ make "SX :SX + 1 ]
+   if :Direction = "down  [ make "SY :SY - 1 ]
+   if :Direction = "up    [ make "SY :SY + 1 ]
+
+   ; eat the apple, if we're over it
+   if (GetBoardSquare :SX :SY) = "A [
+      make "Score :Score + 1
+      Make "TotalApples    :TotalApples    - 1
+   ]
+
+end
+
+to MoveToGrid.LowerLeft :X :Y
+    penup
+    setxy :GridSize * (:X  - :GameBoardWidth / 2)            :GridSize * (:Y - :GameBoardHeight / 2)
+    pendown
+end
+
+to MoveToGrid.LowerRight :X :Y
+    penup
+    setxy :GridSize * (:X + 1 - :GameBoardWidth / 2) - 1    :GridSize * (:Y - :GameBoardHeight / 2)
+    pendown
+end
+
+to MoveToGrid.UpperLeft :X :Y
+    penup
+    setxy :GridSize * (:X - :GameBoardWidth / 2)            :GridSize * (:Y + 1 - :GameBoardHeight / 2) - 1
+    pendown
+end
+
+to PlaceApple
+   ; places an apple randomly in an open space.
+   local [applex appley appleisplaced foundopenspace]
+
+   ; randomly select places on the game board 
+   ; until we find an open one
+   make "foundopenspace "false
+   while [not :foundopenspace] [
+
+      make "AppleX (random :GameBoardWidth  - 2) + 2
+      make "AppleY (random :GameBoardHeight - 2) + 2
+
+      if (GetBoardSquare :AppleX :AppleY) = ". [
+         make "foundopenspace "true
+      ]
+   ]
+
+   ; place the apple
+   SetBoardSquare :AppleX :AppleY "A
+   make "TotalApples :TotalApples + 1
+
+   DrawApple :AppleX :AppleY
+end
+
+to PrintGameBoard
+   ; prints the game board to the commander console
+
+   repeat :GameBoardHeight [
+      print item repcount :GameBoard
+   ]
+
+end
+
+to ProcessKeyEvent :Key
+
+    if :Key=ascii "W [ KeyUp    ]
+    if :Key=ascii "A [ KeyLeft  ] 
+    if :Key=ascii "D [ KeyRight ]
+    if :Key=ascii "S [ KeyDown  ]
+
+    if :Key=ascii "Q [ make "IsDone "true ]
+end
+
+to RunGame
+
+  catch "error [ fullscreen ]
+  icon "Commander
+  icon "Editor
+
+  clearscreen
+  hideturtle
+  setfocus [MSWLogo Screen]
+
+  ; catch errors so we can dock the commander window
+  ; if the user halts logo by trying to close it.
+  catch "error [ GameLoop ]
+  localmake "lasterror error
+  if not empty? :lasterror [ 
+      (show item 2 :lasterror "in item 3 :lasterror) 
+      show item 4 :lasterror 
+  ]
+
+  unicon "Commander
+  catch "error [ splitscreen ]
+
+end
+
+to SetBoardSquare :x :y :value
+    setitem :x (item :y :GameBoard) :value
+end
+
+to StartKeyboardCapture
+   (keyboardon [ProcessKeyEvent keyboardvalue] [ignore keyboardvalue])
+end
+
+to UpdateNextFrame
+
+   if :TotalApples = 0 [
+      repeat 1500 [ PlaceApple ]
+   ]
+
+  ; move the snake
+   Move
+
+   ; draw the snake
+   DrawHead
+
+   ; remove the dead snakes
+   CheckIfDead
+
+   if not :IsAlive [
+     make "IsDone "true
+   ]
+
+end
+
+Make "startup [RunGame]
