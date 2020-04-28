@@ -70,3 +70,9 @@ input sweeper in to the command line to output  the result.
 
 open the p4.to_end file by compiler by compiler(FSMlogo).
 input star in to the command line to print  the result.
+
+cope the code which in p5.feature.txt to https://www.calormen.com/jslogo/ and run.
+it will print a star.
+
+open the clean_up_broad.lgo file by compiler by compiler(FSMlogo).
+it will start the game
